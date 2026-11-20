@@ -1,0 +1,145 @@
+@import 'tailwindcss';
+
+/* ─────────────────────────────────────────────
+   Dizayn tokenlari
+   ───────────────────────────────────────────── */
+
+@theme {
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+
+  /* Asosiy brend rangi — Najot Ta'lim yashili (#0eb182) */
+  --color-brand-50: #e8fbf4;
+  --color-brand-100: #c5f5e3;
+  --color-brand-200: #8eead0;
+  --color-brand-300: #4fdcb5;
+  --color-brand-400: #00dd9d;
+  --color-brand-500: #0eb182;
+  --color-brand-600: #0a8f68;
+  --color-brand-700: #087555;
+  --color-brand-800: #085c44;
+  --color-brand-900: #074a38;
+  --color-brand-950: #022b21;
+
+  /* Urg'u rangi */
+  --color-accent-300: #4fdcb5;
+  --color-accent-400: #00dd9d;
+  --color-accent-500: #0eb182;
+
+  /* Qorong'i bo'limlar (header, footer, CTA) — navy */
+  --color-ink-800: #1a2740;
+  --color-ink-900: #0f1826;
+  --color-ink-950: #0f1826;
+  --color-navy-deep: #092145;
+  --color-blue: #013682;
+
+  --color-surface: #f7fafc;
+
+  --radius-4xl: 2rem;
+
+  --shadow-soft: 0 1px 2px rgb(12 26 18 / 0.04), 0 8px 24px -8px rgb(12 26 18 / 0.08);
+  --shadow-card-hover: 0 2px 4px rgb(12 26 18 / 0.04), 0 18px 40px -12px rgb(14 177 130 / 0.22);
+  --shadow-glow: 0 10px 30px -10px rgb(0 221 157 / 0.35);
+
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-float-delayed: float 6s ease-in-out 3s infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-12px);
+    }
+  }
+}
+
+/* ─────────────────────────────────────────────
+   Asosiy uslublar
+   ───────────────────────────────────────────── */
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    /* Telefonda barcha rem o'lchamlar (matn, bo'shliq) ~12% kichrayadi */
+    font-size: 87.5%;
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  @media (min-width: 640px) {
+    html {
+      font-size: 100%;
+    }
+  }
+
+  body {
+    @apply bg-white text-ink-900 antialiased;
+    font-feature-settings: 'ss01', 'cv11';
+  }
+
+  ::selection {
+    @apply bg-brand-500 text-white;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand-700;
+  }
+
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+/* ─────────────────────────────────────────────
+   Yordamchi utilitalar
+   ───────────────────────────────────────────── */
+
+/* Gradientli matn (yorug' fon uchun) */
+@utility text-gradient {
+  @apply bg-gradient-to-r from-brand-600 to-brand-400 bg-clip-text text-transparent;
+}
+
+/* Nozik setka naqshi (yorug' fon) */
+@utility bg-grid {
+  background-image:
+    linear-gradient(to right, rgb(14 177 130 / 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(14 177 130 / 0.06) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+/* Yon tomonlari xiralashgan konteyner (marquee uchun) */
+@utility mask-fade-x {
+  mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+}
+
+/* Shishasimon kartochka (yorug') */
+@utility glass {
+  @apply border border-slate-200/80 bg-white/80 backdrop-blur-xl;
+}
+
+/* Matnli kontent (yangiliklar) */
+@utility prose-content {
+  @apply space-y-5 text-lg leading-relaxed text-slate-700;
+}
+
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
